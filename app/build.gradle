@@ -38,4 +38,5 @@ dependencies {
     //compile 'com.daimajia.androidviewhover:library:1.0.4@aar'
     //compile project(':view-hover-library')
     compile project(':circular-floating-library')
+    compile 'com.squareup.okhttp3:okhttp:3.0.0-RC1'
 }

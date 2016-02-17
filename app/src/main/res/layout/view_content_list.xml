@@ -13,8 +13,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:layout_marginTop="@dimen/element_space"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
@@ -34,7 +32,7 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:textColor="@color/dark_red_500"
-            android:textSize="16sp"
+            android:textSize="@dimen/sixteen_sp"
             tools:text="邵忠|心向未来，不同凡“想”"/>
 
         <TextView
@@ -46,7 +44,7 @@
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_marginTop="@dimen/element_space_single"
             android:textColor="@color/grey_500"
-            android:textSize="12sp"
+            android:textSize="@dimen/twelve_sp"
             tools:text="2016,我们需要前进"/>
 
         <ImageView
@@ -55,7 +53,7 @@
             android:layout_alignParentRight="true"
             android:layout_below="@id/view_tittle"
             android:layout_gravity="right|center_vertical"
-            android:layout_marginRight="12dp"
+            android:layout_marginRight="@dimen/twelve_sp"
             android:src="@mipmap/ic_action_next_item"
             />
     </RelativeLayout>

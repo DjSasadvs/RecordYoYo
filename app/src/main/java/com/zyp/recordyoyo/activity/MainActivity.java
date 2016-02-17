@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
-        setSelectItem(RecordYoYo.DRAW_HOME_CONTENT);
+        setSelectItem(RecordYoYo.DRAW_HOME_DISCOVER);
     }
 
     private void init() {
@@ -96,9 +97,9 @@ public class MainActivity extends AppCompatActivity
         ImageView rlIcon3 = new ImageView(this);
         //ImageView rlIcon4 = new ImageView(this);
 
-        rlIcon1.setImageResource(R.mipmap.ic_place_black_24dp);
-        rlIcon2.setImageResource(R.mipmap.ic_add_black_48dp);
-        rlIcon3.setImageResource(R.mipmap.ic_border_color_black_48dp);
+        rlIcon1.setImageResource(R.mipmap.ic_photo_camera_black_36dp);
+        rlIcon2.setImageResource(R.mipmap.ic_add_black_36dp);
+        rlIcon3.setImageResource(R.mipmap.ic_border_color_black_36dp);
         //rlIcon4.setImageResource(R.mipmap.ic_place_black_24dp);
 
         SubActionButton rLSub1 = rLSubBuilder.setContentView(rlIcon1, childContentParams).build();
@@ -110,7 +111,7 @@ public class MainActivity extends AppCompatActivity
                 .addSubActionView(rLSub1, rLSub1.getLayoutParams().width, rLSub1.getLayoutParams().height)
                 .addSubActionView(rLSub2, rLSub2.getLayoutParams().width, rLSub2.getLayoutParams().height)
                 .addSubActionView(rLSub3, rLSub3.getLayoutParams().width, rLSub3.getLayoutParams().height)
-                        //        .addSubActionView(rLSubBuilder.setContentView(rlIcon4).build())
+                        //.addSubActionView(rLSubBuilder.setContentView(rlIcon4).build())
                 .setRadius(actionMenuRadius)
                 .setStartAngle(240)
                 .setEndAngle(180)
@@ -155,6 +156,22 @@ public class MainActivity extends AppCompatActivity
                 rightLowerMenu.close(true);
             }
         });
+
+        rLSub3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar snackbar = Snackbar.make(v, R.string.edit_toast, Snackbar.LENGTH_LONG)
+                        .setAction(R.string.add_toast_action, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Snackbar.make(v, R.string.edit_toast_status, Snackbar.LENGTH_LONG).show();
+                            }
+                        });
+                setSnackbarColor(snackbar, Color.parseColor("#FFFFFF"), Color.parseColor("#FFFF00"));
+                snackbar.show();
+                rightLowerMenu.close(true);
+            }
+        });
     }
 
     public static void setSnackbarColor(Snackbar snackbar, int textColor, int buttonColor) {
@@ -165,18 +182,32 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onFragmentInteraction(Uri uri) {
-
+        Toast.makeText(this, "notYet", Toast.LENGTH_LONG).show();
+        //Snackbar.make(uri, "notYet", Snackbar.LENGTH_LONG);
     }
 
     private void setSelectItem(int position) {
         mContentFragmentManager = getSupportFragmentManager();
         mFragmentTransaction = mContentFragmentManager.beginTransaction();
         Fragment mContentFragment = null;
+        Intent mIntent = new Intent();
         switch (position) {
-            case RecordYoYo.DRAW_HOME_CONTENT:
+            case RecordYoYo.DRAW_HOME_DISCOVER:
                 mContentFragment = HomeContent.newInstance("MainActivity", "Home Content");
                 Log.e("MainActivity.this", "HomeContent");
                 //mContentFragment = new Fragment.HomeContent();
+                break;
+            case RecordYoYo.DRAW_SETTINGS:
+                mIntent.setClass(MainActivity.this, SettingActivity.class);
+                startActivity(mIntent);
+                break;
+            case RecordYoYo.DRAW_BACKUP:
+                mIntent.setClass(MainActivity.this, BackUpActivity.class);
+                startActivity(mIntent);
+                break;
+            case RecordYoYo.DRAW_BOOKMARK:
+                mIntent.setClass(MainActivity.this, ScrollingActivity.class);
+                startActivity(mIntent);
                 break;
             default:
                 break;
@@ -210,7 +241,6 @@ public class MainActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
@@ -223,19 +253,21 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        if (id == R.id.nav_home) {
-            setSelectItem(RecordYoYo.DRAW_HOME_CONTENT);
+        if (id == R.id.nav_discover) {
+            setSelectItem(RecordYoYo.DRAW_HOME_DISCOVER);
             // Handle the camera action
         } else if (id == R.id.nav_personality) {
             setSelectItem(RecordYoYo.DRAW_PERSONALITY);
-        } else if (id == R.id.nav_slideshow) {
-            setSelectItem(RecordYoYo.DRAW_SLIDE_SHOW);
-        } else if (id == R.id.nav_manage) {
-            setSelectItem(RecordYoYo.DRAW_SLIDE_SHOW);
+        } else if (id == R.id.nav_message) {
+            setSelectItem(RecordYoYo.DRAW_MESSAGE);
+        } else if (id == R.id.nav_contact) {
+            setSelectItem(RecordYoYo.DRAW_CONTACT);
         } else if (id == R.id.nav_setting) {
             setSelectItem(RecordYoYo.DRAW_SETTINGS);
-        } else if (id == R.id.nav_reflect) {
-            setSelectItem(RecordYoYo.DRAW_REFLECTION);
+        } else if (id == R.id.nav_bookmark) {
+            setSelectItem(RecordYoYo.DRAW_BOOKMARK);
+        } else if (id == R.id.nav_backup) {
+            setSelectItem(RecordYoYo.DRAW_BACKUP);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

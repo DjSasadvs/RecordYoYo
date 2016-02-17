@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/thing_release_text"
+        android:id="@+id/text_thing_release"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/list_high_forty"
         android:layout_marginBottom="@dimen/element_space_single"
@@ -14,7 +14,7 @@
         android:gravity="center_vertical"/>
 
     <ImageView
-        android:id="@+id/thing_release_img"
+        android:id="@+id/img_thing_release"
         android:layout_width="@dimen/thirty_two"
         android:layout_height="@dimen/thirty_two"
         android:layout_alignParentRight="true"

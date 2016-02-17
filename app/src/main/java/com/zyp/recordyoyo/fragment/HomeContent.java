@@ -1,15 +1,18 @@
 package com.zyp.recordyoyo.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.zyp.recordyoyo.R;
+import com.zyp.recordyoyo.activity.DetailContentActivity;
 import com.zyp.recordyoyo.adapters.ListViewAdapter;
 import com.zyp.recordyoyo.models.ViewContent;
 import com.zyp.recordyoyo.utils.Utility;
@@ -85,7 +88,7 @@ public class HomeContent extends Fragment {
             mListViewAdapter = new ListViewAdapter(this.getActivity().getApplicationContext(), mViewContentsList, "ViewContentsList");
             mViewListView.setAdapter(mListViewAdapter);
             Utility.setListViewHeightBasedOnChildren(mViewListView);
-            //mListener.onFragmentInteraction(Uri.parse());
+            setListener();
         }
         return mHomeContent;
     }
@@ -106,10 +109,10 @@ public class HomeContent extends Fragment {
                     mViewContents.setImageViewId(R.mipmap.monkey_back_0);
                     break;
                 case 1:
-                    mViewContents.setImageViewId(R.mipmap.monkey_back_1);
+                    mViewContents.setImageViewId(R.mipmap.sky);
                     break;
                 case 2:
-                    mViewContents.setImageViewId(R.mipmap.monkey_back_2);
+                    mViewContents.setImageViewId(R.mipmap.cat);
                     break;
                 case 3:
                     mViewContents.setImageViewId(R.mipmap.monkey_back_3);
@@ -117,12 +120,23 @@ public class HomeContent extends Fragment {
                 default:
                     mViewContents.setImageViewId(R.mipmap.view_1);
                     break;
-
             }
 
             mViewContentsList.add(mViewContents);
         }
         return mViewContentsList;
+    }
+
+    private void setListener() {
+        mViewListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //mListener.onFragmentInteraction(Uri.parse(""));
+                Intent mIntent = new Intent();
+                mIntent.setClass(getActivity(), DetailContentActivity.class);
+                startActivity(mIntent);
+            }
+        });
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -165,6 +179,7 @@ public class HomeContent extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
+        //public void onFragmentInteraction(View view);
     }
 
 }

@@ -1,8 +1,9 @@
 package com.zyp.recordyoyo.utils;
 
 /**
+ * calculate the dynamic height of list_view conference on stack overflow
+ * <p/>
  * Created by Administrator on 2015/12/22.
- * 动态listview的高度 --stackoverflow
  */
 
 import android.view.View;
