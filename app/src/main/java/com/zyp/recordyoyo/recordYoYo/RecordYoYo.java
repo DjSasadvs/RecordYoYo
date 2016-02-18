@@ -1,7 +1,8 @@
 package com.zyp.recordyoyo.recordYoYo;
 
 /**
- * Created by Administrator on 2015/12/23.
+ * use IoDH to design Singleton
+ * Created by YipengZhang on 2015/12/23.
  */
 public class RecordYoYo {
     public static final int DRAW_HOME_DISCOVER = 0;
