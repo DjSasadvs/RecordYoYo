@@ -1,7 +1,8 @@
 package com.zyp.recordyoyo.models;
 
 /**
- * Created by Administrator on 2015/12/22.
+ * ViewContent Module
+ * Created by YipengZhang on 2015/12/22.
  */
 public class ViewContent {
 

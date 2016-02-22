@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -23,6 +24,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,11 +42,14 @@ public class MainActivity extends AppCompatActivity
     public static FragmentManager mContentFragmentManager;
     public static FragmentTransaction mFragmentTransaction;
 
+    private LinearLayout mLinearLayoutNavHeader;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
+        setListener();
         setSelectItem(RecordYoYo.DRAW_HOME_DISCOVER);
     }
 
@@ -61,6 +66,19 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        mLinearLayoutNavHeader = (LinearLayout) findViewById(R.id.nav_header_main);
+    }
+
+    private void setListener() {
+        mLinearLayoutNavHeader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mIntent = new Intent();
+                mIntent.setClass(MainActivity.this, PersonalInfoActivity.class);
+                startActivity(mIntent);
+            }
+        });
     }
 
     public void addFloatingActionButton() {
@@ -164,7 +182,7 @@ public class MainActivity extends AppCompatActivity
                         .setAction(R.string.add_toast_action, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Snackbar.make(v, R.string.edit_toast_status, Snackbar.LENGTH_LONG).show();
+                                Snackbar.make(v, Environment.getExternalStorageDirectory().toString(), Snackbar.LENGTH_LONG).show();
                             }
                         });
                 setSnackbarColor(snackbar, Color.parseColor("#FFFFFF"), Color.parseColor("#FFFF00"));

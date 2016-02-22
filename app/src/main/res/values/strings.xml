@@ -31,7 +31,7 @@
         "长久以来，人们都各自发展出自己的极光传说，比如在芬兰语中，北极光则被称为“revontulet”，直译过来就是狐狸之火。\n"
         "古时的芬兰人相信，因为一只狐狸在白雪覆盖的山坡奔跑时，尾巴扫起晶莹闪烁的雪花一路伸展到天空中，从而形成了北极光。"
     </string>
-    <string name="title_activity_login">sign in</string>
+    <string name="login">sign in</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -45,7 +45,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="title_activity_scrolling">ScrollingActivity</string>
+    <string name="activity_scrolling">ScrollingActivity</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
@@ -136,4 +136,6 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="section_format">Hello World from section: %1$d</string>
+
+    <string name="personal_info">Personal Info</string>
 </resources>
