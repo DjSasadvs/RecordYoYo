@@ -13,7 +13,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
-        android:layout_marginTop="@dimen/element_space"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
         tools:src="@mipmap/view_1"/>

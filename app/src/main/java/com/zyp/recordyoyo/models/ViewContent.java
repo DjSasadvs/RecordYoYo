@@ -1,8 +1,10 @@
 package com.zyp.recordyoyo.models;
 
+import android.graphics.Bitmap;
+
 /**
  * ViewContent Module
- * Created by YipengZhang on 2015/12/22.
+ * Created by zyp on 2015/12/22.
  */
 public class ViewContent {
 
@@ -13,6 +15,15 @@ public class ViewContent {
     private String mContentDate;
     private int mContentType;
     private String mContentTag;
+    private Bitmap mImageViewBitmap;
+
+    public Bitmap getmImageViewBitmap() {
+        return mImageViewBitmap;
+    }
+
+    public void setmImageViewBitmap(Bitmap mImageViewBitmap) {
+        this.mImageViewBitmap = mImageViewBitmap;
+    }
 
     public String getContentDate() {
         return mContentDate;

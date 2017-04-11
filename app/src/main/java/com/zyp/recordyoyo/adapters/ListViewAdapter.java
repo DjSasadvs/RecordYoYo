@@ -15,7 +15,7 @@ import java.util.List;
 import com.zyp.recordyoyo.models.ViewContent;
 
 /**
- * Created by Administrator on 2015/12/22.
+ * Created by zyp on 2015/12/22.
  */
 public class ListViewAdapter extends BaseAdapter {
     private Context context;
@@ -88,6 +88,8 @@ public class ListViewAdapter extends BaseAdapter {
             mContentView = (ContentView) convertView.getTag();
             // 设置文本和图片，然后返回这个View，用于ListView的Item的展示
             if (tagString.toString().equals("ViewContentsList")) {
+//                if(mViewContentsList.get(position).getImageViewId())
+//                    mContentView.mImageImageView.setImageBitmap();
                 mContentView.mImageImageView.setImageResource(mViewContentsList.get(position).getImageViewId());
                 mContentView.mTittleTxtView.setText(mViewContentsList.get(position).getTittleTxtView().toString());
                 mContentView.mCommentTxtView.setText(mViewContentsList.get(position).getCommentTxtView().toString());

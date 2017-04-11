@@ -18,18 +18,14 @@
 
     <string name="cancel">取消</string>
     <string name="confirm">发送</string>
-    <string name="add_thing">记录灵感</string>
+    <string name="add_thing">标签记录</string>
 
     <string name="detail_content">信息详情</string>
 
     <string name="back_up">备份</string>
 
-    <string name="test_detail_simulation">
-        "    传说伊欧斯是希腊神话中“黎明”的化身，是希腊神泰坦的女儿，是太阳神和月亮女神的妹妹.\n"
-        "    当人类第一次仰望天际，惊见北极光的那一刻开始，北极北极光景色，光就一直是个“谜”.\n"
-        "    长久以来，人们都各自发展出自己的极光传说，比如在芬兰语中，北极光则被称为“revontulet”，直译过来就是狐狸之火。\n"
-        "    古时的芬兰人相信，因为一只狐狸在白雪覆盖的山坡奔跑时，尾巴扫起晶莹闪烁的雪花一路伸展到天空中，从而形成了北极光。"
-    </string>
-
     <string name="personal_info">个人信息</string>
+
+    <string name="notification_recommend_title">大觉寺的银杏，一千年的轮回</string>
+    <string name="notification_recommend_content">对于我而言，一个地方“入冬”的标志是金灿灿的银杏树叶</string>
 </resources>

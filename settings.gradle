@@ -1,1 +1,1 @@
-include ':app', ':hello-charts-library', ':view-hover-library', ':circular-floating-library'
+include ':app', ':circular-floating-library'

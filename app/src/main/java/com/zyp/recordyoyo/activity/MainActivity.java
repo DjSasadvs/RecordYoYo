@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -34,6 +33,7 @@ import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 import com.zyp.recordyoyo.R;
 import com.zyp.recordyoyo.fragment.HomeContent;
 import com.zyp.recordyoyo.recordYoYo.RecordYoYo;
+import com.zyp.recordyoyo.services.RecordYoYoCoreService;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, HomeContent.OnFragmentInteractionListener {
@@ -41,8 +41,13 @@ public class MainActivity extends AppCompatActivity
     //Fragment
     public static FragmentManager mContentFragmentManager;
     public static FragmentTransaction mFragmentTransaction;
-
+    private HomeContent mHomeContentFragment;
     private LinearLayout mLinearLayoutNavHeader;
+    private DrawerLayout drawer;
+
+    private FloatingActionButton.LayoutParams startParams;
+    private FrameLayout.LayoutParams childParams;
+    private FrameLayout.LayoutParams childContentParams;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,16 +63,18 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         addFloatingActionButton();
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer == null)
+            drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         mLinearLayoutNavHeader = (LinearLayout) findViewById(R.id.nav_header_main);
+        startService(new Intent(this, RecordYoYoCoreService.class));
     }
 
     private void setListener() {
@@ -88,11 +95,11 @@ public class MainActivity extends AppCompatActivity
         int floatingActionButtonChildMargin = getResources().getDimensionPixelSize(R.dimen.fab_child_margin);
         int actionMenuRadius = getResources().getDimensionPixelSize(R.dimen.action_menu_radius);
 
-        FloatingActionButton.LayoutParams startParams = new FloatingActionButton.LayoutParams(
+        startParams = new FloatingActionButton.LayoutParams(
                 floatingActionButtonSize, floatingActionButtonSize);
-        FrameLayout.LayoutParams childParams = new FrameLayout.LayoutParams(
+        childParams = new FrameLayout.LayoutParams(
                 floatingActionButtonChildSize, floatingActionButtonChildSize);
-        FrameLayout.LayoutParams childContentParams = new FrameLayout.LayoutParams(
+        childContentParams = new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
 
         startParams.setMargins(floatingActionMargin, floatingActionMargin, floatingActionMargin, floatingActionMargin);
@@ -110,28 +117,28 @@ public class MainActivity extends AppCompatActivity
         SubActionButton.Builder rLSubBuilder = new SubActionButton.Builder(this);
         rLSubBuilder.setLayoutParams(childParams);
         //rLSubBuilder.setLayoutParams(childContentParams);
-        ImageView rlIcon1 = new ImageView(this);
+        //ImageView rlIcon1 = new ImageView(this);
         ImageView rlIcon2 = new ImageView(this);
         ImageView rlIcon3 = new ImageView(this);
         //ImageView rlIcon4 = new ImageView(this);
 
-        rlIcon1.setImageResource(R.mipmap.ic_photo_camera_black_36dp);
+        //rlIcon1.setImageResource(R.mipmap.ic_photo_camera_black_36dp);
         rlIcon2.setImageResource(R.mipmap.ic_add_black_36dp);
         rlIcon3.setImageResource(R.mipmap.ic_border_color_black_36dp);
         //rlIcon4.setImageResource(R.mipmap.ic_place_black_24dp);
 
-        SubActionButton rLSub1 = rLSubBuilder.setContentView(rlIcon1, childContentParams).build();
+        //SubActionButton rLSub1 = rLSubBuilder.setContentView(rlIcon1, childContentParams).build();
         SubActionButton rLSub2 = rLSubBuilder.setContentView(rlIcon2, childContentParams).build();
         SubActionButton rLSub3 = rLSubBuilder.setContentView(rlIcon3, childContentParams).build();
 
         // Set 3 default SubActionButtons
         final FloatingActionMenu rightLowerMenu = new FloatingActionMenu.Builder(this)
-                .addSubActionView(rLSub1, rLSub1.getLayoutParams().width, rLSub1.getLayoutParams().height)
+                //.addSubActionView(rLSub1, rLSub1.getLayoutParams().width, rLSub1.getLayoutParams().height)
                 .addSubActionView(rLSub2, rLSub2.getLayoutParams().width, rLSub2.getLayoutParams().height)
                 .addSubActionView(rLSub3, rLSub3.getLayoutParams().width, rLSub3.getLayoutParams().height)
-                        //.addSubActionView(rLSubBuilder.setContentView(rlIcon4).build())
+                //.addSubActionView(rLSubBuilder.setContentView(rlIcon4).build())
                 .setRadius(actionMenuRadius)
-                .setStartAngle(240)
+                .setStartAngle(225)
                 .setEndAngle(180)
                 .attachTo(rightLowerButton)
                 .build();
@@ -169,7 +176,7 @@ public class MainActivity extends AppCompatActivity
                                 startActivity(mIntent);
                             }
                         });
-                setSnackbarColor(snackbar, Color.parseColor("#FFA726"), Color.parseColor("#F57C00"));
+                setSnackBarColor(snackbar, Color.parseColor("#FFA726"), Color.parseColor("#F57C00"));
                 snackbar.show();
                 rightLowerMenu.close(true);
             }
@@ -185,14 +192,14 @@ public class MainActivity extends AppCompatActivity
                                 Snackbar.make(v, Environment.getExternalStorageDirectory().toString(), Snackbar.LENGTH_LONG).show();
                             }
                         });
-                setSnackbarColor(snackbar, Color.parseColor("#FFFFFF"), Color.parseColor("#FFFF00"));
+                setSnackBarColor(snackbar, Color.parseColor("#FFFFFF"), Color.parseColor("#FFFF00"));
                 snackbar.show();
                 rightLowerMenu.close(true);
             }
         });
     }
 
-    public static void setSnackbarColor(Snackbar snackbar, int textColor, int buttonColor) {
+    public static void setSnackBarColor(Snackbar snackbar, int textColor, int buttonColor) {
         View view = snackbar.getView();
         ((TextView) view.findViewById(R.id.snackbar_text)).setTextColor(textColor);
         ((Button) view.findViewById(R.id.snackbar_action)).setTextColor(buttonColor);
@@ -207,12 +214,12 @@ public class MainActivity extends AppCompatActivity
     private void setSelectItem(int position) {
         mContentFragmentManager = getSupportFragmentManager();
         mFragmentTransaction = mContentFragmentManager.beginTransaction();
-        Fragment mContentFragment = null;
         Intent mIntent = new Intent();
         switch (position) {
             case RecordYoYo.DRAW_HOME_DISCOVER:
-                mContentFragment = HomeContent.newInstance("MainActivity", "Home Content");
-                Log.e("MainActivity.this", "HomeContent");
+                if (mHomeContentFragment == null)
+                    mHomeContentFragment = HomeContent.newInstance("MainActivity", "Home Content");
+                Log.i("MainActivity.this", "HomeContent");
                 //mContentFragment = new Fragment.HomeContent();
                 break;
             case RecordYoYo.DRAW_SETTINGS:
@@ -224,14 +231,14 @@ public class MainActivity extends AppCompatActivity
                 startActivity(mIntent);
                 break;
             case RecordYoYo.DRAW_BOOKMARK:
-                mIntent.setClass(MainActivity.this, ScrollingActivity.class);
+                mIntent.setClass(MainActivity.this, DetailsActivity.class);
                 startActivity(mIntent);
                 break;
             default:
                 break;
         }
-        if (mContentFragment != null) {
-            mFragmentTransaction.replace(R.id.content_frame, mContentFragment, "fragment here");
+        if (mHomeContentFragment != null) {
+            mFragmentTransaction.replace(R.id.content_frame, mHomeContentFragment, "fragment here");
             mFragmentTransaction.commit();
         }
     }
@@ -258,9 +265,8 @@ public class MainActivity extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (item.getItemId() == R.id.action_settings) {
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -284,10 +290,7 @@ public class MainActivity extends AppCompatActivity
             setSelectItem(RecordYoYo.DRAW_SETTINGS);
         } else if (id == R.id.nav_bookmark) {
             setSelectItem(RecordYoYo.DRAW_BOOKMARK);
-        } else if (id == R.id.nav_backup) {
-            setSelectItem(RecordYoYo.DRAW_BACKUP);
         }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

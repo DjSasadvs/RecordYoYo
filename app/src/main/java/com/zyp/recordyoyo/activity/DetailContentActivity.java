@@ -7,8 +7,9 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 
 import com.zyp.recordyoyo.R;
+import com.zyp.recordyoyo.utils.Constants;
 
-public class DetailContentActivity extends AppCompatActivity {
+public class DetailContentActivity extends AppCompatActivity implements GestureDetector.OnGestureListener {
 
     private GestureDetector mGestureDetector;
 
@@ -19,38 +20,47 @@ public class DetailContentActivity extends AppCompatActivity {
         init();
     }
 
-    @Deprecated
     private void init() {
-        mGestureDetector = new GestureDetector(new MyGestureDetector());
+        mGestureDetector = new GestureDetector(this.getApplicationContext(), this);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        return mGestureDetector.onTouchEvent(event);
+        return this.mGestureDetector.onTouchEvent(event);
     }
 
-    /**
-     * function - gesture fling to exit
-     */
-    private class MyGestureDetector extends GestureDetector.SimpleOnGestureListener {
+    @Override
+    public boolean onDown(MotionEvent e) {
+        return false;
+    }
 
-        final int FLING_MIN_DISTANCE = 140, FLING_MIN_VELOCITY = 150;
-        // 触发条件 ：
-        // X轴的坐标位移大于FLING_MIN_DISTANCE，且移动速度大于FLING_MIN_VELOCITY个像素/秒
+    @Override
+    public void onShowPress(MotionEvent e) {
 
-        // 参数解释：
-        // e1：第1个ACTION_DOWN MotionEvent
-        // e2：最后一个ACTION_MOVE MotionEvent
-        // velocityX：X轴上的移动速度，像素/秒
-        // velocityY：Y轴上的移动速度，像素/秒
-        @Override
-        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            //FLING_LEFT
-            if (e2.getX() - e1.getX() > FLING_MIN_DISTANCE && Math.abs(velocityX) > FLING_MIN_VELOCITY) {
-                Log.i("MyGesture", "Fling left");
-                finish();
-            }
-            return super.onFling(e1, e2, velocityX, velocityY);
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+        return false;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent e) {
+
+    }
+
+    @Override
+    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        if (e2.getX() - e1.getX() > Constants.FLING_MIN_DISTANCE && Math.abs(velocityX) > Constants.FLING_MIN_VELOCITY) {
+            Log.i("MyGesture", "Fling left");
+            finish();
+            return true;
         }
+        return false;
     }
 }
